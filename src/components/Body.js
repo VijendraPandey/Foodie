@@ -7,7 +7,7 @@ import { filterData } from "../utils/helper";
 const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
-  const [searchInput, setSearcInput] = useState("UP 14");
+  const [searchInput, setSearchInput] = useState("UP 14"); // Fixed typo here
 
   useEffect(() => {
     getRestaurants();
@@ -19,13 +19,9 @@ const Body = () => {
     );
     const json = await data.json();
     // console.log(json);
-    setFilteredRestaurants(
-      json?.data?.cards[1]?.groupedCard?.cardGroupMap?.RESTAURANT?.cards
-      
-    );
-    setAllRestaurants(
-      json?.data?.cards[1]?.groupedCard?.cardGroupMap?.RESTAURANT?.cards
-    );
+    const restaurants = json?.data?.cards[1]?.groupedCard?.cardGroupMap?.RESTAURANT?.cards || [];
+    setFilteredRestaurants(restaurants);
+    setAllRestaurants(restaurants);
   }
 
   return allRestaurants?.length === 0 ? (
@@ -40,7 +36,7 @@ const Body = () => {
           placeholder="Search"
           value={searchInput}
           onChange={(e) => {
-            setSearcInput(e.target.value); //captures what is being written in the text box
+            setSearchInput(e.target.value); // Fixed typo here
           }}
         />
         <button
@@ -58,8 +54,8 @@ const Body = () => {
         {filteredRestaurants.map((restaurant) => {
           return (
             <Link
-              to={"/restaurant/" + restaurant?.card?.car?.info.id}
-              key={Number(restaurant?.card?.card?.info.id)}
+              to={"/restaurant/" + restaurant?.card?.card?.info?.id} // Fixed typo here
+              key={Number(restaurant?.card?.card?.info?.id)}
             >
               <RestaurantCard {...restaurant?.card?.card?.info} />
             </Link> //spread operator to destructure restaurant info into name, cuisines etc
