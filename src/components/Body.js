@@ -7,7 +7,7 @@ import { filterData } from "../utils/helper";
 const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
-  const [searchInput, setSearchInput] = useState("UP 14"); // Fixed typo here
+  const [searchInput, setSearchInput] = useState(""); // Fixed typo here
 
   useEffect(() => {
     getRestaurants();
